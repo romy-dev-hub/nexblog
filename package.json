@@ -10,16 +10,23 @@
   },
   "dependencies": {
     "framer": "^2.4.1",
+    "framer-motion": "^12.23.12",
     "lucide": "^0.541.0",
+    "lucide-react": "^0.541.0",
     "motion": "^12.23.12",
-    "next": "15.5.0",
-    "react": "19.1.1",
-    "react-dom": "19.1.1",
+    "next": "^15.5.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1",
     "three": "^0.179.1"
   },
   "devDependencies": {
-    "eslint": "^9",
-    "eslint-config-next": "15.5.0",
-    "@eslint/eslintrc": "^3"
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^24.3.0",
+    "@types/react": "^19.1.11",
+    "@types/react-dom": "^19.1.7",
+    "@types/three": "^0.179.0",
+    "eslint": "^9.34.0",
+    "eslint-config-next": "^15.5.0",
+    "typescript": "^5.9.2"
   }
 }
