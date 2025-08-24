@@ -5,50 +5,12 @@ import { motion } from 'framer-motion';
 import ThreeBackground from '../components/ThreeBackground';
 import Header from '../components/Layout/Header';
 import Footer from '../components/Layout/Footer';
-import BlogCard from '../components/BlogCard';
 import AuthModal from '../components/AuthModal';
 import AnimatedSection from '../components/AnimatedSection';
 
 export default function Home() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login');
-  
-  // Sample blog data
-  const blogPosts = [
-    {
-      id: 1,
-      title: "Getting Started with Next.js",
-      excerpt: "Learn how to create modern web applications with Next.js and React.",
-      image: "/images/blog1.jpg",
-      date: "May 15, 2023",
-      author: {
-        name: "Alex Johnson",
-        avatar: "/images/avatar1.jpg"
-      }
-    },
-    {
-      id: 2,
-      title: "The Power of Three.js in Web Development",
-      excerpt: "Discover how to create stunning 3D visuals for your websites using Three.js.",
-      image: "/images/blog2.jpg",
-      date: "June 2, 2023",
-      author: {
-        name: "Maria Chen",
-        avatar: "/images/avatar2.jpg"
-      }
-    },
-    {
-      id: 3,
-      title: "Mastering Framer Motion Animations",
-      excerpt: "Create smooth, engaging animations that will delight your users.",
-      image: "/images/blog3.jpg",
-      date: "June 10, 2023",
-      author: {
-        name: "David Wilson",
-        avatar: "/images/avatar3.jpg"
-      }
-    }
-  ];
 
   const openAuthModal = (mode) => {
     setAuthMode(mode);
@@ -98,14 +60,54 @@ export default function Home() {
           </div>
         </AnimatedSection>
         
-        <AnimatedSection delay={0.6} className="blog-section">
+        <AnimatedSection delay={0.6} className="cta-section">
           <div className="container">
-            <h2>Latest Articles</h2>
-            
-            <div className="blog-grid">
-              {blogPosts.map((post, index) => (
-                <BlogCard key={post.id} post={post} index={index} />
-              ))}
+            <div className="cta-content">
+              <h2>Be the First to Share Your Story</h2>
+              <p>
+                Our community is just getting started, and we're looking for passionate writers 
+                to share their ideas and experiences. Join us today and become one of our founding authors.
+              </p>
+              <div className="cta-buttons">
+                <motion.button 
+                  className="btn btn-primary"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => openAuthModal('signup')}
+                >
+                  Sign Up to Write
+                </motion.button>
+                <motion.button 
+                  className="btn btn-outline"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  Learn More
+                </motion.button>
+              </div>
+            </div>
+          </div>
+        </AnimatedSection>
+        
+        <AnimatedSection delay={0.8} className="features-section">
+          <div className="container">
+            <h2>Why Choose NexBlog?</h2>
+            <div className="features-grid">
+              <div className="feature-card">
+                <div className="feature-icon">✨</div>
+                <h3>Beautiful Design</h3>
+                <p>Experience a visually stunning blogging platform with smooth animations.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">🚀</div>
+                <h3>Fast Performance</h3>
+                <p>Built with Next.js for lightning-fast page loads and optimal performance.</p>
+              </div>
+              <div className="feature-card">
+                <div className="feature-icon">🎨</div>
+                <h3>Easy to Use</h3>
+                <p>Simple and intuitive interface that makes writing and reading enjoyable.</p>
+              </div>
             </div>
           </div>
         </AnimatedSection>
