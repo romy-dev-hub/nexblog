@@ -57,7 +57,6 @@ export default function Categories() {
                 >
                   <div className="category-header">
                     <h3>{category.name}</h3>
-                    <span className="count">{category.count} articles</span>
                   </div>
                   <p>Explore the latest content in {category.name.toLowerCase()}</p>
                   <button className="btn btn-outline">Browse</button>
