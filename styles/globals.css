@@ -704,6 +704,7 @@ body {
   padding: 1rem 0;
   background: rgba(15, 15, 26, 0.8);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
   z-index: 1000;
   transition: all 0.3s ease;
@@ -719,6 +720,22 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+
+.nav-left,
+.nav-center,
+.nav-right {
+  display: flex;
+  align-items: center;
+}
+
+.nav-center {
+  flex: 1;
+  justify-content: center;
+}
+
+.nav-right {
+  justify-content: flex-end;
 }
 
 .logo {
@@ -822,6 +839,7 @@ body {
   width: 100%;
   background: rgba(15, 15, 26, 0.98);
   backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* For Safari */
   border-top: 1px solid rgba(255, 255, 255, 0.1);
   overflow: hidden;
 }
@@ -859,7 +877,14 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .nav-items,
+  .nav {
+    justify-content: space-between;
+  }
+  
+  .nav-center {
+    display: none;
+  }
+  
   .auth-buttons {
     display: none;
   }
@@ -880,5 +905,17 @@ body {
 @media (min-width: 769px) {
   .mobile-menu {
     display: none;
+  }
+}
+
+.main {
+  padding-top: 80px; /* Adjust based on your navbar height */
+  min-height: 100vh;
+}
+
+/* For mobile */
+@media (max-width: 768px) {
+  .main {
+    padding-top: 70px;
   }
 }

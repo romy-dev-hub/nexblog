@@ -37,64 +37,70 @@ const Navbar = () => {
     >
       <div className="container">
         <nav className="nav">
-          <Link href="/" className="logo">
-            <motion.span
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              NexBlog
-            </motion.span>
-          </Link>
-
-          <div className="nav-items">
-            {navItems.map((item, index) => (
-              <Link 
-                key={item.name} 
-                href={item.path}
-                className="nav-link"
+          <div className="nav-left">
+            <Link href="/" className="logo">
+              <motion.span
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
               >
-                <motion.span
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.3, delay: index * 0.1 }}
-                  whileHover={{ y: -2 }}
-                  className="link-text"
+                NexBlog
+              </motion.span>
+            </Link>
+          </div>
+
+          <div className="nav-center">
+            <div className="nav-items">
+              {navItems.map((item, index) => (
+                <Link 
+                  key={item.name} 
+                  href={item.path}
+                  className="nav-link"
                 >
-                  {item.name}
-                </motion.span>
-              </Link>
-            ))}
-          </div>
-
-          <div className="auth-buttons">
-            <motion.button 
-              className="btn btn-outline"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Sign In
-            </motion.button>
-            
-            <motion.button 
-              className="btn btn-primary"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-            >
-              Sign Up
-            </motion.button>
-          </div>
-
-          <button 
-            className="mobile-menu-btn"
-            onClick={toggleMenu}
-            aria-label="Toggle menu"
-          >
-            <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
-              <span></span>
-              <span></span>
-              <span></span>
+                  <motion.span
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.3, delay: index * 0.1 }}
+                    whileHover={{ y: -2 }}
+                    className="link-text"
+                  >
+                    {item.name}
+                  </motion.span>
+                </Link>
+              ))}
             </div>
-          </button>
+          </div>
+
+          <div className="nav-right">
+            <div className="auth-buttons">
+              <motion.button 
+                className="btn btn-outline"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Sign In
+              </motion.button>
+              
+              <motion.button 
+                className="btn btn-primary"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                Sign Up
+              </motion.button>
+            </div>
+
+            <button 
+              className="mobile-menu-btn"
+              onClick={toggleMenu}
+              aria-label="Toggle menu"
+            >
+              <div className={`hamburger ${isMenuOpen ? 'open' : ''}`}>
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+            </button>
+          </div>
         </nav>
       </div>
 
