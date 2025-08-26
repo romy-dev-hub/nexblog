@@ -5,14 +5,15 @@ import ThreeBackground from '../../components/ThreeBackground';
 import Header from '../../components/Layout/Header';
 import Footer from '../../components/Layout/Footer';
 import AnimatedSection from '../../components/AnimatedSection';
+import Image from 'next/image';
 
 export default function About() {
   const team = [
     { 
-     name: "Xiao Ro",
-     role: "Founder & Creator", 
-     bio: "Passionate about creating engaging content and building communities.",
-     Image: "/images/xiao.jpg" 
+      name: "Xiao Ro",
+      role: "Founder & Creator", 
+      bio: "Passionate about creating engaging content and building communities.",
+      image: "/images/xiao.jpg" 
     },
   ];
 
@@ -53,7 +54,7 @@ export default function About() {
                   everyone has a story worth telling, and we're building the tools to make that possible.
                 </p>
                 <p>
-                  Founded in 2023, our platform combines cutting-edge technology with elegant design 
+                  Founded in 2025, our platform combines cutting-edge technology with elegant design 
                   to create an exceptional reading and writing experience.
                 </p>
               </div>
@@ -82,13 +83,20 @@ export default function About() {
                       transition={{ duration: 0.5, delay: 0.6 + (index * 0.1) }}
                     >
                       <div className="member-avatar">
-                        <Image 
-                          src={member.image} 
-                          alt={member.name}
-                          width={120}
-                          height={120}
-                          className="avatar-image"
-                        />
+                        {/* Add a check to ensure image path exists */}
+                        {member.image ? (
+                          <Image 
+                            src={member.image} 
+                            alt={member.name}
+                            width={120}
+                            height={120}
+                            className="avatar-image"
+                          />
+                        ) : (
+                          <div className="avatar-placeholder">
+                            {member.name.split(' ').map(n => n[0]).join('')}
+                          </div>
+                        )}
                       </div>
                       <h3>{member.name}</h3>
                       <p className="role">{member.role}</p>
