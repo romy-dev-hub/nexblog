@@ -719,6 +719,7 @@ body {
 .nav {
   display: flex;
   justify-content: space-between;
+  flex-direction: row;
   align-items: center;
 }
 
@@ -877,10 +878,7 @@ body {
 
 /* Responsive */
 @media (max-width: 768px) {
-  .nav {
-    justify-content: space-between;
-  }
-  
+   
   .nav-center {
     display: none;
   }
@@ -909,7 +907,7 @@ body {
 }
 
 .main {
-  padding-top: 80px; /* Adjust based on your navbar height */
+  padding-top: 80px; /* Adjust based on the navbar height */
   min-height: 100vh;
 }
 
