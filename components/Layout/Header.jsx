@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import { User, LogIn } from 'lucide-react';
+import Link from 'next/link';
 
 const Header = ({ openAuthModal }) => {
   return (
@@ -12,14 +12,14 @@ const Header = ({ openAuthModal }) => {
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
           >
-            NexBlog
+            <Link href="/">NexBlog</Link>
           </motion.div>
           
           <div className="nav-links">
-            <a href="#">Home</a>
-            <a href="#">Discover</a>
-            <a href="#">Categories</a>
-            <a href="#">About</a>
+            <Link href="/">Home</Link>
+            <Link href="/discover">Discover</Link>
+            <Link href="/categories">Categories</Link>
+            <Link href="/about">About</Link>
           </div>
           
           <div className="auth-buttons">
@@ -29,7 +29,6 @@ const Header = ({ openAuthModal }) => {
               whileTap={{ scale: 0.95 }}
               onClick={() => openAuthModal('login')}
             >
-              <LogIn size={16} />
               Sign In
             </motion.button>
             
@@ -39,7 +38,6 @@ const Header = ({ openAuthModal }) => {
               whileTap={{ scale: 0.95 }}
               onClick={() => openAuthModal('signup')}
             >
-              <User size={16} />
               Sign Up
             </motion.button>
           </div>
