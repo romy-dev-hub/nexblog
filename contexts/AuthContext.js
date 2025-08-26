@@ -16,7 +16,10 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     // Check if user is logged in on app load
-    const user = JSON.parse(localStorage.getItem('current_user'));
+    const user = typeof window !== 'undefined' ? 
+      JSON.parse(localStorage.getItem('current_user') || 'null') : 
+      null;
+      
     if (user) {
       setCurrentUser(user);
     }
@@ -25,7 +28,9 @@ export function AuthProvider({ children }) {
 
   const signup = (email, password, name) => {
     const user = db.users.create({ email, password, name });
-    localStorage.setItem('current_user', JSON.stringify(user));
+    if (typeof window !== 'undefined') {
+      localStorage.setItem('current_user', JSON.stringify(user));
+    }
     setCurrentUser(user);
     return user;
   };
@@ -33,7 +38,9 @@ export function AuthProvider({ children }) {
   const login = (email, password) => {
     const user = db.users.findByEmail(email);
     if (user && user.password === password) {
-      localStorage.setItem('current_user', JSON.stringify(user));
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('current_user', JSON.stringify(user));
+      }
       setCurrentUser(user);
       return user;
     }
@@ -41,7 +48,9 @@ export function AuthProvider({ children }) {
   };
 
   const logout = () => {
-    localStorage.removeItem('current_user');
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem('current_user');
+    }
     setCurrentUser(null);
   };
 

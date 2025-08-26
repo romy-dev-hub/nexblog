@@ -1,8 +1,32 @@
 // utils/database.js
 
+// Helper function to safely access localStorage
+const getStorageItem = (key, defaultValue = []) => {
+  if (typeof window === 'undefined') {
+    return defaultValue;
+  }
+  try {
+    const item = window.localStorage.getItem(key);
+    return item ? JSON.parse(item) : defaultValue;
+  } catch (error) {
+    console.error('Error accessing localStorage:', error);
+    return defaultValue;
+  }
+};
+
+// Helper function to safely set localStorage items
+const setStorageItem = (key, value) => {
+  if (typeof window === 'undefined') return;
+  try {
+    window.localStorage.setItem(key, JSON.stringify(value));
+  } catch (error) {
+    console.error('Error setting localStorage:', error);
+  }
+};
+
 // Simple in-memory database (replace with real database in production)
-let users = JSON.parse(localStorage.getItem('blog_users')) || [];
-let blogPosts = JSON.parse(localStorage.getItem('blog_posts')) || [];
+let users = getStorageItem('blog_users', []);
+let blogPosts = getStorageItem('blog_posts', []);
 
 export const db = {
   // User methods
@@ -14,7 +38,7 @@ export const db = {
         createdAt: new Date().toISOString()
       };
       users.push(user);
-      localStorage.setItem('blog_users', JSON.stringify(users));
+      setStorageItem('blog_users', users);
       return user;
     },
     
@@ -42,7 +66,7 @@ export const db = {
         comments: []
       };
       blogPosts.push(post);
-      localStorage.setItem('blog_posts', JSON.stringify(blogPosts));
+      setStorageItem('blog_posts', blogPosts);
       return post;
     },
     
@@ -63,7 +87,7 @@ export const db = {
       const post = blogPosts.find(post => post.id === id);
       if (post) {
         post.likes += 1;
-        localStorage.setItem('blog_posts', JSON.stringify(blogPosts));
+        setStorageItem('blog_posts', blogPosts);
       }
       return post;
     },
@@ -76,7 +100,7 @@ export const db = {
           ...comment,
           createdAt: new Date().toISOString()
         });
-        localStorage.setItem('blog_posts', JSON.stringify(blogPosts));
+        setStorageItem('blog_posts', blogPosts);
       }
       return post;
     }
