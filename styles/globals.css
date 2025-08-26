@@ -580,6 +580,60 @@ body {
   margin-bottom: 1rem;
 }
 
+/* Avatar Image */
+.member-avatar {
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.avatar-image {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(255, 255, 255, 0.1);
+}
+
+/* Fallback for avatar placeholder */
+.avatar-placeholder {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  background: linear-gradient(45deg, var(--primary), var(--secondary));
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+/* Social links (optional) */
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-link {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s;
+}
+
+.social-link:hover {
+  background: var(--primary);
+  transform: translateY(-2px);
+}
+
 /* Team Grid */
 .team-grid {
   display: grid;

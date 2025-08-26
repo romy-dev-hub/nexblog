@@ -8,7 +8,12 @@ import AnimatedSection from '../../components/AnimatedSection';
 
 export default function About() {
   const team = [
-    { name: "Xiao Ro", role: "Founder & Creator", bio: "Passionate about creating engaging content and building communities." },
+    { 
+     name: "Xiao Ro",
+     role: "Founder & Creator", 
+     bio: "Passionate about creating engaging content and building communities.",
+     Image: "/images/xiao.jpg" 
+    },
   ];
 
   return (
@@ -77,7 +82,13 @@ export default function About() {
                       transition={{ duration: 0.5, delay: 0.6 + (index * 0.1) }}
                     >
                       <div className="member-avatar">
-                        <div className="avatar-placeholder"></div>
+                        <Image 
+                          src={member.image} 
+                          alt={member.name}
+                          width={120}
+                          height={120}
+                          className="avatar-image"
+                        />
                       </div>
                       <h3>{member.name}</h3>
                       <p className="role">{member.role}</p>
