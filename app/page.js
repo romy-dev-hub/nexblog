@@ -3,10 +3,10 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
 import ThreeBackground from '../components/ThreeBackground';
-import Header from '../components/Layout/Header';
 import Footer from '../components/Layout/Footer';
 import AuthModal from '../components/AuthModal';
 import AnimatedSection from '../components/AnimatedSection';
+import Navbar from '../components/Layout/Navbar';
 
 export default function Home() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
@@ -24,8 +24,8 @@ export default function Home() {
   return (
     <div className="container">
       <ThreeBackground />
-      <Header openAuthModal={openAuthModal} />
-      
+      <Navbar openAuthModal={openAuthModal} />
+
       <main className="main">
         <AnimatedSection className="hero">
           <div className="container">
