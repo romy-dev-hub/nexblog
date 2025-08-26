@@ -8,9 +8,7 @@ import AnimatedSection from '../../components/AnimatedSection';
 
 export default function About() {
   const team = [
-    { name: "Alex Johnson", role: "Founder & Editor", bio: "Passionate about creating engaging content and building communities." },
-    { name: "Maria Chen", role: "Content Director", bio: "Experienced in content strategy and digital storytelling." },
-    { name: "David Wilson", role: "Tech Lead", bio: "Loves building beautiful, functional web experiences." },
+    { name: "Xiao Ro", role: "Founder & Creator", bio: "Passionate about creating engaging content and building communities." },
   ];
 
   return (
