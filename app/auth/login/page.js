@@ -1,10 +1,11 @@
+// app/auth/login/page.js
 'use client';
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/contexts/AuthContext';
 import Link from 'next/link';
-import { motion } from 'framer-motion';
+import AuthLayout from '@/components/AuthLayout';
 
 export default function Login() {
   const [email, setEmail] = useState('');
@@ -21,7 +22,11 @@ export default function Login() {
     try {
       setError('');
       setLoading(true);
-      await login(email, password);
+      const user = await login(email, password);
+      
+      // Store welcome message in session storage
+      sessionStorage.setItem('welcomeMessage', `Welcome back, ${user.name}!`);
+      
       router.push('/');
     } catch (error) {
       setError('Failed to log in: ' + error.message);
@@ -31,82 +36,49 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-page-with-bg">
-      <div className="auth-container">
-        <motion.div 
-          className="auth-card glassmorphic"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-        >
-          <div className="auth-header">
-            <h2>Welcome Back</h2>
-            <p>Sign in to your account</p>
-          </div>
-          
-          {error && <div className="error-message">{error}</div>}
-          
-          <form onSubmit={handleSubmit} className="auth-form">
-            <div className="form-group">
-              <label htmlFor="email">Email Address</label>
-              <input
-                type="email"
-                id="email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                placeholder="Enter your email"
-              />
-            </div>
-            
-            <div className="form-group">
-              <label htmlFor="password">Password</label>
-              <input
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
-                required
-                placeholder="Enter your password"
-              />
-            </div>
-            
-            <motion.button 
-              type="submit" 
-              className="btn btn-primary auth-submit-btn"
-              disabled={loading}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-            >
-              {loading ? 'Logging In...' : 'Log In'}
-            </motion.button>
-          </form>
-          
-          <div className="auth-footer">
-            <p>Don't have an account? <Link href="/auth/signup">Sign Up</Link></p>
-          </div>
-        </motion.div>
-      </div>
+    <AuthLayout 
+      title="Welcome Back" 
+      subtitle="Sign in to your account"
+    >
+      {error && <div className="error-message">{error}</div>}
       
-      {/* Inline styles for background to ensure it works */}
-      <style jsx global>{`
-        .auth-page-with-bg {
-          min-height: 100vh;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          position: relative;
-          overflow: hidden;
-          background: linear-gradient(135deg, rgba(15, 15, 26, 0.9) 0%, rgba(26, 26, 46, 0.9) 50%, rgba(63, 66, 241, 0.6) 100%), 
-                     url('/images/background.gif') center/cover no-repeat;
-        }
+      <form onSubmit={handleSubmit} className="auth-form">
+        <div className="form-group">
+          <label htmlFor="email">Email Address</label>
+          <input
+            type="email"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+            placeholder="Enter your email"
+          />
+        </div>
         
-        @media (max-width: 768px) {
-          .auth-page-with-bg {
-            padding: 1rem;
-          }
-        }
-      `}</style>
-    </div>
+        <div className="form-group">
+          <label htmlFor="password">Password</label>
+          <input
+            type="password"
+            id="password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+            placeholder="Enter your password"
+          />
+        </div>
+        
+        <button 
+          type="submit" 
+          className="btn btn-primary auth-submit-btn"
+          disabled={loading}
+        >
+          {loading ? 'Logging In...' : 'Log In'}
+        </button>
+      </form>
+      
+      <div className="auth-footer">
+        <p>Don't have an account? <Link href="/auth/signup">Sign Up</Link></p>
+      </div>
+    </AuthLayout>
   );
 }

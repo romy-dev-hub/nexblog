@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
+import { motion , AnimatePresence } from 'framer-motion';
 import ThreeBackground from '../components/ThreeBackground';
 import Footer from '../components/Layout/Footer';
 import AuthModal from '../components/AuthModal';
@@ -11,6 +11,20 @@ import Navbar from '../components/Layout/Navbar';
 export default function Home() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
   const [authMode, setAuthMode] = useState('login');
+  const [welcomeMessage, setWelcomeMessage] = useState('');
+
+  useEffect(() => {
+    // Check for welcome message in session storage
+    const message = sessionStorage.getItem('welcomeMessage');
+    if (message) {
+      setWelcomeMessage(message);
+      // Clear the message after showing it
+      setTimeout(() => {
+        sessionStorage.removeItem('welcomeMessage');
+        setWelcomeMessage('');
+      }, 5000);
+    }
+  }, []);
 
   const openAuthModal = (mode) => {
     setAuthMode(mode);
@@ -25,6 +39,23 @@ export default function Home() {
     <div className="container">
       <ThreeBackground />
       <Navbar openAuthModal={openAuthModal} />
+
+      <AnimatePresence>
+        {welcomeMessage && (
+          <motion.div 
+            className="welcome-banner"
+            initial={{ opacity: 0, y: -50 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -50 }}
+            transition={{ duration: 0.5 }}
+          >
+            <div className="welcome-content">
+              <span className="welcome-icon">🎉</span>
+              <span>{welcomeMessage}</span>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <main className="main">
         <AnimatedSection className="hero">
