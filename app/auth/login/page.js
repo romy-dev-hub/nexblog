@@ -1,4 +1,3 @@
-// app/auth/login/page.js
 'use client';
 
 import { useState } from 'react';
@@ -32,19 +31,22 @@ export default function Login() {
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-page-with-bg">
       <div className="auth-container">
         <motion.div 
-          className="auth-card"
+          className="auth-card glassmorphic"
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
         >
-          <h2>Log In to Your Account</h2>
+          <div className="auth-header">
+            <h2>Welcome Back</h2>
+            <p>Sign in to your account</p>
+          </div>
           
           {error && <div className="error-message">{error}</div>}
           
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="auth-form">
             <div className="form-group">
               <label htmlFor="email">Email Address</label>
               <input
@@ -53,6 +55,7 @@ export default function Login() {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
+                placeholder="Enter your email"
               />
             </div>
             
@@ -64,23 +67,46 @@ export default function Login() {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 required
+                placeholder="Enter your password"
               />
             </div>
             
-            <button 
+            <motion.button 
               type="submit" 
-              className="btn btn-primary"
+              className="btn btn-primary auth-submit-btn"
               disabled={loading}
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
             >
               {loading ? 'Logging In...' : 'Log In'}
-            </button>
+            </motion.button>
           </form>
           
           <div className="auth-footer">
-            Don't have an account? <Link href="/auth/signup">Sign Up</Link>
+            <p>Don't have an account? <Link href="/auth/signup">Sign Up</Link></p>
           </div>
         </motion.div>
       </div>
+      
+      {/* Inline styles for background to ensure it works */}
+      <style jsx global>{`
+        .auth-page-with-bg {
+          min-height: 100vh;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          position: relative;
+          overflow: hidden;
+          background: linear-gradient(135deg, rgba(15, 15, 26, 0.9) 0%, rgba(26, 26, 46, 0.9) 50%, rgba(63, 66, 241, 0.6) 100%), 
+                     url('/images/background.gif') center/cover no-repeat;
+        }
+        
+        @media (max-width: 768px) {
+          .auth-page-with-bg {
+            padding: 1rem;
+          }
+        }
+      `}</style>
     </div>
   );
 }
