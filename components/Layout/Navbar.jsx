@@ -3,10 +3,12 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useAuth } from '@/contexts/AuthContext';
 
-const Navbar = () => {
+const Navbar = ({ openAuthModal }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
+  const { currentUser, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -19,6 +21,11 @@ const Navbar = () => {
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+  const handleLogout = () => {
+    logout();
+    setIsMenuOpen(false);
   };
 
   const navItems = [
@@ -71,23 +78,39 @@ const Navbar = () => {
           </div>
 
           <div className="nav-right">
-            <div className="auth-buttons">
-              <motion.button 
-                className="btn btn-outline"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Sign In
-              </motion.button>
-              
-              <motion.button 
-                className="btn btn-primary"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-              >
-                Sign Up
-              </motion.button>
-            </div>
+            {currentUser ? (
+              <div className="user-menu">
+                <span className="welcome-text">Welcome, {currentUser.name}</span>
+                <motion.button 
+                  className="btn btn-outline"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={handleLogout}
+                >
+                  Logout
+                </motion.button>
+              </div>
+            ) : (
+              <div className="auth-buttons">
+                <motion.button 
+                  className="btn btn-outline"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => openAuthModal('login')}
+                >
+                  Sign In
+                </motion.button>
+                
+                <motion.button 
+                  className="btn btn-primary"
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  onClick={() => openAuthModal('signup')}
+                >
+                  Sign Up
+                </motion.button>
+              </div>
+            )}
 
             <button 
               className="mobile-menu-btn"
@@ -126,10 +149,38 @@ const Navbar = () => {
                 </Link>
               ))}
               
-              <div className="mobile-auth-buttons">
-                <button className="btn btn-outline">Sign In</button>
-                <button className="btn btn-primary">Sign Up</button>
-              </div>
+              {currentUser ? (
+                <div className="mobile-user-menu">
+                  <span className="welcome-text">Welcome, {currentUser.name}</span>
+                  <button 
+                    className="btn btn-outline"
+                    onClick={handleLogout}
+                  >
+                    Logout
+                  </button>
+                </div>
+              ) : (
+                <div className="mobile-auth-buttons">
+                  <button 
+                    className="btn btn-outline"
+                    onClick={() => {
+                      openAuthModal('login');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Sign In
+                  </button>
+                  <button 
+                    className="btn btn-primary"
+                    onClick={() => {
+                      openAuthModal('signup');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    Sign Up
+                  </button>
+                </div>
+              )}
             </div>
           </motion.div>
         )}
